@@ -34,6 +34,7 @@ $routes->addRedirect('/', 'home');
 
 $routes->resource('mahasiswa');
 $routes->resource('matakuliah');
+$routes->resource('krs');
 
 /*
  * --------------------------------------------------------------------

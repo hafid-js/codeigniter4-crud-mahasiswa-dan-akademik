@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\MahasiswaModel;
+use App\Models\UserModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class Mahasiswa extends ResourceController
@@ -15,6 +16,7 @@ class Mahasiswa extends ResourceController
     function __construct()
     {
         $this->mahasiswa = new MahasiswaModel();
+        $this->users = new UserModel();
     }
 
     protected $helpers = ['custom'];
@@ -64,16 +66,23 @@ class Mahasiswa extends ResourceController
             'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             'alamat' => $this->request->getVar('alamat'),
         ];
+            
+        $nim = $this->request->getVar('nim');
+        $db      = db_connect();
+        $cek = $db->query("SELECT * FROM Mahasiswa WHERE nim = '$nim'");
+        if ($cek->getNumRows() >= 1) {
+            return redirect()->back()->withInput()->with('error', 'Kode Mahasiswa tersebut sudah digunakan, silahkan gunakan yang lain!');
+        } else {
             $save = $this->mahasiswa->insert($data);
             if (!$save) {
                 return redirect()->back()->withInput()->with('errors', $this->mahasiswa->errors());
             } else {
-                $nim = $this->request->getVar('nim');
-                $db      = db_connect();
-                $cek = $db->query("SELECT * FROM Mahasiswa WHERE nim = $nim");
-                if ($cek->getNumRows() > 1) {
-                    return redirect()->back()->withInput()->with('error', 'Data dengan NIM tersebut sudah ada, silahkan di cek kembali!');
-                } else {
+                $data = [
+                    'email_user' => $this->request->getVar('email_mahasiswa'),
+                    'password_user' => "jyk".$this->request->getVar('nim'),
+                    'level' => 2,
+                ];
+                $this->users->insert($data);
                 return redirect()->to(site_url('mahasiswa'))->with('success', 'Data Berhasil Disimpan');
             }
         }
@@ -102,13 +111,38 @@ class Mahasiswa extends ResourceController
      */
     public function update($id = null)
     {
+        // $data = $this->request->getPost();
+        // $save = $this->mahasiswa->update($id, $data);
+        // if (!$save) {
+        //     return redirect()->back()->withInput()->with('errors', $this->mahasiswa->errors());
+        // } else {
+        //     return redirect()->to(site_url('mahasiswa'))->with('success', 'Data Berhasil Diupdate');
+        // }
+
+
+
+
+
+        // if ($cek->getNumRows() <= 2) {
+        //     $save = $this->mahasiswa->update($id, $data);
+        //     if (!$save) {
+        //         return redirect()->back()->withInput()->with('errors', $this->mahasiswa->errors());
+        //     } else {
+        //         return redirect()->to(site_url('mahasiswa'))->with('success', 'Data Berhasil Disimpan');
+        //     }
+        // }
+        // else {
+        //     return redirect()->back()->withInput()->with('error', 'NIM tersebut sudah digunakan, silahkan cek kembali!');
+        // }
+
         $data = $this->request->getPost();
         $save = $this->mahasiswa->update($id, $data);
-        if (!$save) {
-            return redirect()->back()->withInput()->with('errors', $this->mahasiswa->errors());
-        } else {
-            return redirect()->to(site_url('mahasiswa'))->with('success', 'Data Berhasil Diupdate');
-        }
+        if(!$save) {
+         return redirect()->back()->withInput()->with('errors', $this->mahasiswa->errors());
+       } else {
+         return redirect()->to(site_url('mahasiswa'))->with('success', 'Data Berhasil Diupdate');
+       }
+    
     }
 
     /**

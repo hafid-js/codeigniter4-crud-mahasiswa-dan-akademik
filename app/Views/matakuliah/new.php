@@ -8,7 +8,7 @@ Tambah Data<?= $this->extend('layout/default') ?>
 <section class="section">
     <div class="section-header">
         <div class="section-header-back">
-            <a href="<?= site_url('mahasiswa') ?>" class="btn"><i class="fas fa-arrow-left"></i></a>
+            <a href="<?= site_url('matakuliah') ?>" class="btn"><i class="fas fa-arrow-left"></i></a>
         </div>
         <h1>Create Matakuliah</h1>
     </div>
@@ -20,9 +20,8 @@ Tambah Data<?= $this->extend('layout/default') ?>
                     Buat Data Baru
                 </h4>
             </div>
-
+            <?php if (session()->getFlashdata('error')) : ?>
             <div class="card-body">
-                <?php if (session()->getFlashdata('error')) : ?>
                     <div class="alert alert-danger alert-dismissible show fade">
                         <div class="alert-body">
                             <button class="close" data-dismiss="alert">x</button>
@@ -30,8 +29,8 @@ Tambah Data<?= $this->extend('layout/default') ?>
                             <?= session()->getFlashdata('error'); ?>
                         </div>
                     </div>
-                <?php endif; ?>
             </div>
+            <?php endif; ?>
             <div class="card-body col-md-6">
                 <?php $errors = session()->getFlashdata('errors'); ?>
                 <form action="<?= site_url('matakuliah') ?>" method="post" autocomplete="off">

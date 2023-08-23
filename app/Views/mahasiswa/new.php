@@ -21,8 +21,8 @@ Tambah Data<?= $this->extend('layout/default') ?>
                 </h4>
             </div>
 
+            <?php if (session()->getFlashdata('error')) : ?>
             <div class="card-body">
-                <?php if (session()->getFlashdata('error')) : ?>
                     <div class="alert alert-danger alert-dismissible show fade">
                         <div class="alert-body">
                             <button class="close" data-dismiss="alert">x</button>
@@ -30,8 +30,8 @@ Tambah Data<?= $this->extend('layout/default') ?>
                             <?= session()->getFlashdata('error'); ?>
                         </div>
                     </div>
-                <?php endif; ?>
             </div>
+            <?php endif; ?>
             <div class="card-body col-md-6">
                 <?php $errors = session()->getFlashdata('errors'); ?>
                 <form action="<?= site_url('mahasiswa') ?>" method="post" autocomplete="off">

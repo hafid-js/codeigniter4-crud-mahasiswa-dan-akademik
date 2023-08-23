@@ -60,16 +60,17 @@ class Matakuliah extends ResourceController
             'nama_matakuliah' => $this->request->getVar('nama_matakuliah'),
             'sks' => $this->request->getVar('sks'),
         ];
+
+        $kode_matakuliah = $this->request->getVar('kode_matakuliah');
+        $db      = db_connect();
+        $cek = $db->query("SELECT * FROM Matakuliah WHERE kode_matakuliah = '$kode_matakuliah'");
+        if ($cek->getNumRows() >= 1) {
+            return redirect()->back()->withInput()->with('error', 'Kode Matakuliah tersebut sudah digunakan, silahkan gunakan yang lain!');
+        } else {
             $save = $this->matakuliah->insert($data);
             if (!$save) {
                 return redirect()->back()->withInput()->with('errors', $this->matakuliah->errors());
             } else {
-                $kode_matakuliah = $this->request->getVar('kode_matakuliah');
-                $db      = db_connect();
-                $cek = $db->query("SELECT * FROM Matakuliah WHERE kode_matakuliah = $kode_matakuliah");
-                if ($cek->getNumRows() > 1) {
-                    return redirect()->back()->withInput()->with('error', 'Kode Matakuliah tersebut sudah digunakan, silahkan gunakan yang lain!');
-                } else {
                 return redirect()->to(site_url('matakuliah'))->with('success', 'Data Berhasil Disimpan');
             }
         }
@@ -82,7 +83,13 @@ class Matakuliah extends ResourceController
      */
     public function edit($id = null)
     {
-        //
+        $matakuliah = $this->matakuliah->find($id);
+        if (is_object($matakuliah)) {
+            $data['matakuliah'] = $matakuliah;
+            return view('matakuliah/edit', $data);
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
     }
 
     /**
@@ -92,7 +99,14 @@ class Matakuliah extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        
+        $data = $this->request->getPost();
+        $save = $this->matakuliah->update($id, $data);
+        if(!$save) {
+         return redirect()->back()->withInput()->with('errors', $this->matakuliah->errors());
+       } else {
+         return redirect()->to(site_url('matakuliah'))->with('success', 'Data Berhasil Diupdate');
+       }
     }
 
     /**

@@ -10,11 +10,11 @@ class MatakuliahModel extends Model
     protected $primaryKey       = 'id_matakuliah';
     protected $returnType       = 'object';
     protected $allowedFields    = ['id_matakuliah','kode_matakuliah','nama_matakuliah','sks'];
-    // protected $useTimestamps = true;
-    // protected $useSoftDeletes = false;
+//  protected $useTimestamps = true;   
+//     protected $useSoftDeletes = false;
 
     protected $validationRules = [
-        'kode_matakuliah'     => 'required|min_length[6]|max_length[8]|alpha_numeric',
+        'kode_matakuliah'     => 'required|min_length[6]|max_length[10]|alpha_numeric',
         'nama_matakuliah'        => 'required|alpha_numeric_space',
         'sks'        => 'required|integer|less_than_equal_to[4]',
     ];
@@ -23,7 +23,7 @@ class MatakuliahModel extends Model
             'required' => 'Kode Matakuliah tidak boleh kosong',
             'integer' => 'Masukkan Kode Matakuliah dengan benar!',
             'min_length' => 'Kode Matakuliah minimal 6 karakter!',
-            'max_length' => 'Kode Matakuliah maksimal 8 karakter!',
+            'max_length' => 'Kode Matakuliah maksimal 10 karakter!',
             'alpha_numeric' => 'Kode hanya boleh menggunakan angka dan huruf'
         ],
         'nama_matakuliah' => [

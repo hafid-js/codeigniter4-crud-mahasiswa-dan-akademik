@@ -87,7 +87,6 @@
                                     <td><?= $value->kode_matakuliah ?></td>
                                     <td><?= $value->nama_matakuliah ?></td>
                                     <td><?= $value->sks ?></td>
-                                    <td></td>
                                     <td class="text-center" style="width: 15%;">
                                         <a href="<?= site_url('matakuliah/' . $value->id_matakuliah . '/edit') ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                         <form action="<?= site_url('matakuliah/' . $value->id_matakuliah) ?>" class="d-inline" method="post" id="del-<?= $value->id_matakuliah ?>">

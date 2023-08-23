@@ -36,8 +36,6 @@ class CreateKrs extends Migration
         
     ]);
     $this->forge->addKey('id_krs', true);
-    $this->forge->addForeignKey('id_mahasiswa', 'mahasiswa', 'id_mahasiswa');
-    $this->forge->addForeignKey('id_matakuliah', 'matakuliah', 'id_matakuliah');
     $this->forge->createTable('krs');
 }
 
