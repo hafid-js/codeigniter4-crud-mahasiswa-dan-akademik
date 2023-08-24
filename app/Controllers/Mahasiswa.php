@@ -80,7 +80,7 @@ class Mahasiswa extends ResourceController
                 $data = [
                     'id_user' => $this->request->getVar('nim'),
                     'email_user' => $this->request->getVar('email_mahasiswa'),
-                    'password_user' => $this->request->getVar('nim'),
+                    'password_user' => password_hash($this->request->getVar('nim'), PASSWORD_DEFAULT),
                     'level' => 2,
                 ];
                 $this->users->insert($data);

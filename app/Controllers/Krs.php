@@ -62,8 +62,8 @@ class Krs extends ResourceController
 
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('Dea Venditama');
-		$pdf->SetTitle('Invoice');
-		$pdf->SetSubject('Invoice');
+		$pdf->SetTitle('KRS');
+		$pdf->SetSubject('KRS');
 
 		$pdf->setPrintHeader(false);
 		$pdf->setPrintFooter(false);
@@ -75,7 +75,7 @@ class Krs extends ResourceController
 		//line ini penting
 		$this->response->setContentType('application/pdf');
 		//Close and output PDF document
-		$pdf->Output('invoice.pdf', 'I');
+		$pdf->Output('KRS'.'-'.$id.'-'.date('d-m-Y H:i:s').'.pdf', 'I');
     }
 
     /**

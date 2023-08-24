@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <div style="font-size:44px; color:'#dddddd'"><i>Invoice</i></div>
+    <div style="font-size:24px; color:'#dddddd'"><i>KRS (Kartu Rencana Studi)</i></div>
     <p>
         <i>Universitas Pro Energy</i><br>
         Jakarta, Indonesia
