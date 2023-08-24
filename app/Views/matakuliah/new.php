@@ -1,6 +1,6 @@
 <?= $this->extend('layout/default') ?>
 <?= $this->section('title') ?>
-<title>Create Matakuliah &mdash; CRUD Mahasiswa</title>
+<title>Create Mata Kuliah &mdash; CRUD Mahasiswa</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -30,7 +30,7 @@
                 <form action="<?= site_url('matakuliah') ?>" method="post" autocomplete="off">
                     <?= csrf_field() ?>
                     <div class="form-group">
-                        <label for="">Kode Matakuliah *</label>
+                        <label for="">Kode Mata Kuliah *</label>
                         <input type="text" name="kode_matakuliah" value="<?= old('kode_matakuliah') ?>" class="form-control <?= isset($errors['kode_matakuliah']) ? 'is-invalid' : null ?>">
                         <div class="invalid-feedback">
                             <?= isset($errors['kode_matakuliah']) ? $errors['kode_matakuliah'] : null ?>

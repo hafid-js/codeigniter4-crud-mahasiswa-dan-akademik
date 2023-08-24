@@ -160,7 +160,10 @@ class Mahasiswa extends ResourceController
      */
     public function delete($id = null)
     {
+        $id_user = $this->request->getVar('nim');
+        $this->users->query("Delete FROM users WHERE id_user = $id_user");
         $this->mahasiswa->delete($id);
+      
         return redirect()->to(site_url('mahasiswa'))->with('success', 'Data Berhasil Dihapus');
     }
 }

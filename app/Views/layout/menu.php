@@ -6,5 +6,7 @@
 <li><a class="nav-link" href="<?= site_url('file') ?>"><i class="far fa-file-alt"></i> <span>Data KRS</span></a></li>
 <?php } ?>
 <?php if (session()->get('level') == 2) { ?>
-<li><a class="nav-link" href="<?= site_url('krs') ?>"><i class="far fa-file-alt"></i> <span>Data KRS</span></a></li>
+<li><a class="nav-link" href="<?= site_url('krs') ?>"><i class="far fa-file-alt"></i> <span>Input KRS</span></a></li>
+<li><a class="nav-link" href="<?= site_url('file/new') ?>"><i class="fas fa-upload"></i> <span>Upload KRS</span></a></li>
+<li><a class="nav-link" href="<?= site_url('file/data') ?>"><i class="fas fa-list"></i> <span>Data KRS</span></a></li>
 <?php } ?>

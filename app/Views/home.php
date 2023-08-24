@@ -10,20 +10,22 @@
     <div class="section-header">
         <h1>Dashboard</h1>
     </div>
-
     <div class="section-body">
-    <!-- <div class="row">
+
+
+    <?php if (session()->get('level') == 1) { ?>
+      <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-primary">
-                  <i class="far fa-user"></i>
+                  <i class="fas fa-users"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Total Admin</h4>
+                    <h4>Total Mahasiswa</h4>
                   </div>
                   <div class="card-body">
-                    10
+                  <?= countData('mahasiswa') ?>
                   </div>
                 </div>
               </div>
@@ -31,14 +33,14 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-danger">
-                  <i class="far fa-newspaper"></i>
+                  <i class="fas fa-list"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>News</h4>
+                    <h4>Matakuliah</h4>
                   </div>
                   <div class="card-body">
-                    42
+                  <?= countData('matakuliah') ?>
                   </div>
                 </div>
               </div>
@@ -50,10 +52,10 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Reports</h4>
+                    <h4>KRS</h4>
                   </div>
                   <div class="card-body">
-                    1,201
+                  <?= countData('krs') ?>
                   </div>
                 </div>
               </div>
@@ -61,19 +63,25 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-success">
-                  <i class="fas fa-circle"></i>
+                  <i class="fas fa-users"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Online Users</h4>
+                    <h4>Admin Akademik</h4>
                   </div>
                   <div class="card-body">
-                    47
+                  <?= countData('akademik') ?>
                   </div>
                 </div>
               </div>
             </div>                  
           </div>
-    </div> -->
+<?php } ?>
+<?php if (session()->get('level') == 2) { ?>
+
+<?php } ?>
+
+   
+    </div>
 </section>
 <?php $this->endSection() ?>

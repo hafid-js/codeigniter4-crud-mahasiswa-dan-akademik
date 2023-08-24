@@ -59,13 +59,13 @@
                         </div>
                         <br>
                         <small class="form-text text-muted" style="font-style:italic;">
-                        * Kata kunci berdasarkan nip, dan nama
-                      </small>
+                            * Kata kunci berdasarkan nip, dan nama
+                        </small>
                     </form>
                 </div>
                 <div class="card-header">
-                <a href="<?= site_url('akademik/new') ?>" class="btn btn-primary">Tambah Data</a>
-                  </div>
+                    <a href="<?= site_url('akademik/new') ?>" class="btn btn-primary">Tambah Data</a>
+                </div>
                 <div class="card-body table-responsive">
                     <table class="card-body table table-striped table-md" id="table-1">
                         <thead>
@@ -89,18 +89,34 @@
                                     <td><?= $value->nama ?></td>
                                     <td><?= $value->email_akademik ?></td>
                                     <td>Akademik</td>
-                                    <td class="text-center" style="width: 15%;">
-                                        <a href="<?= site_url('akademik/' . $value->id_akademik . '/edit') ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        <form action="<?= site_url('akademik/' . $value->id_akademik) ?>" class="d-inline" method="post" id="del-<?= $value->id_akademik ?>">
-                                            <?= csrf_field(); ?>
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <button href="" class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah Anda Yakin?" data-confirm-yes="submitDel(<?= $value->id_akademik ?>)"><i class="fas fa-trash"></i></button>
-                                        </form>
 
-                                    </td>
+                                    <?php if (session()->get('id_user') == $value->nip) { ?>
+                                        <td>
+                                            <button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-placement="top" data-content="Anda Login menggunakan akun ini, anda tidak bisa melakukan aksi.">
+                                                <i class="fas fa-info"></i>
+                                                info
+                                            </button>
+                                        </td>
+                                    <?php } else { ?>
+                                        <td class="text-center" style="width: 15%;">
+                                            <a href="<?= site_url('akademik/' . $value->id_akademik . '/edit') ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                            <form action="<?= site_url('akademik/delete_akademik/' . $value->id_akademik) ?>" class="d-inline" method="post" id="del-<?= $value->id_akademik ?>">
+                                                <?= csrf_field(); ?>
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="nip" value="<?= $value->nip ?>">
+                                                <button href="" class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah Anda Yakin?" data-confirm-yes="submitDel(<?= $value->id_akademik ?>)"><i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
+
+                                    <?php } ?>
+
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
+
+
+
+
 
                     </table>
                     <div class="float-left">

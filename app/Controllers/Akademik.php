@@ -78,7 +78,7 @@ class Akademik extends ResourceController
                 $data = [
                     'id_user' => $this->request->getVar('nip'),
                     'email_user' => $this->request->getVar('email_akademik'),
-                    'password_user' => $this->request->getVar('nip'),
+                    'password_user' => password_hash($this->request->getVar('nip'), PASSWORD_DEFAULT),
                     'level' => 1,
                 ];
                 $this->users->insert($data);
@@ -159,7 +159,9 @@ class Akademik extends ResourceController
      */
     public function delete($id = null)
     {
-        $this->akademik->delete($id);
+        $id_user = $this->request->getVar('nip');
+        $this->users->query("Delete FROM akademik WHERE nip = $id_user");
+        $this->users->query("Delete FROM users WHERE id_user = $id_user");
         return redirect()->to(site_url('akademik'))->with('success', 'Data Berhasil Dihapus');
     }
 }

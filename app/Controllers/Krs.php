@@ -6,6 +6,7 @@ use App\Models\KrsModel;
 use App\Models\MatakuliahModel;
 use CodeIgniter\RESTful\ResourceController;
 use PDO;
+use TCPDF;
 
 class Krs extends ResourceController
 {
@@ -27,11 +28,14 @@ class Krs extends ResourceController
     {
         $id_mahasiswa = session()->get('id_user');
         $db = db_connect();
-        $query = $db->query("SELECT matakuliah.kode_matakuliah, matakuliah.nama_matakuliah, sks FROM Krs, Matakuliah WHERE krs.id_mahasiswa = $id_mahasiswa GROUP BY matakuliah.kode_matakuliah");
+        $query = $db->query("SELECT krs.id_krs, matakuliah.kode_matakuliah, matakuliah.nama_matakuliah, sks FROM Krs, Matakuliah WHERE krs.id_matakuliah = matakuliah.id_matakuliah AND krs.id_mahasiswa = $id_mahasiswa");
         $data['krs'] = $query->getResult();
 
         $query2 = $db->query("SELECT nim, nama, email_mahasiswa FROM Mahasiswa WHERE nim = $id_mahasiswa");
         $data['mahasiswa'] = $query2->getResult();
+
+        $query3 = $db->query("SELECT nim, nama, email_mahasiswa FROM Mahasiswa WHERE nim = $id_mahasiswa");
+        $data['mahasiswa'] = $query3->getResult();
 
         $data['matakuliah'] = $this->matakuliah->findAll();
         return view('krs/index', $data);
@@ -51,18 +55,27 @@ class Krs extends ResourceController
         $query2 = $db->query("SELECT nim, nama, email_mahasiswa FROM Mahasiswa WHERE nim = $id");
         $data['mahasiswa'] = $query2->getResult();
         $data['matakuliah'] = $this->matakuliah->findAll();
- 
 
-        // $mpdf = new \Mpdf\Mpdf();
-		// $html = view('krs/show', $data);
-		// $mpdf->WriteHTML($html);
-		// $this->response->setHeader('Content-Type', 'application/pdf');
-		// $mpdf->Output();
+        $html = view('krs/show', $data);
 
-        // $html = route_to('krs/show', $data, true);
-		// $mpdf = new \Mpdf\Mpdf(array('enable_remote' => true));
-		// $mpdf->WriteHTML($html);
-		// $mpdf->Output();
+		$pdf = new TCPDF('R', PDF_UNIT, 'A4', true, 'UTF-8', false);
+
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('Dea Venditama');
+		$pdf->SetTitle('Invoice');
+		$pdf->SetSubject('Invoice');
+
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+
+		$pdf->addPage();
+
+		// output the HTML content
+		$pdf->writeHTML($html, true, false, true, false, '');
+		//line ini penting
+		$this->response->setContentType('application/pdf');
+		//Close and output PDF document
+		$pdf->Output('invoice.pdf', 'I');
     }
 
     /**
@@ -121,6 +134,7 @@ class Krs extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        $this->krs->delete($id);
+        return redirect()->to(site_url('krs'))->with('success', 'Data Berhasil Dihapus');
     }
 }

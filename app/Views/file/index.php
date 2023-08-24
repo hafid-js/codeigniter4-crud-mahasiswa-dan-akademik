@@ -99,7 +99,7 @@
                                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item has-icon" href="#"><i class="far fa-eye"></i> View</a>
+                                                <a class="dropdown-item has-icon" target="_blank" href="<?= base_url('uploads/krs/' . $value->file) ?>"><i class="far fa-eye"></i> Lihat</a>
 
                                                 <form action="<?= site_url('file/' . $value->id_file) ?>" class="d-inline" method="post"
                                        >

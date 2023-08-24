@@ -127,9 +127,11 @@
                                         <td><?= $value->nama_matakuliah ?> </td>
                                         <td><?= $value->sks ?></td>
                                         <td>
-                                            <div class="buttons">
-                                                <a href="http://localhost/testcodingkhafid/krs/hapus_data/78" onclick="return confirm('Yakin hapus data?')" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
-                                            </div>
+                                        <form action="<?= site_url('krs/' . $value->id_krs) ?>" class="d-inline" method="post" id="del-<?= $value->id_krs ?>">
+                                            <?= csrf_field(); ?>
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button href="" class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah Anda Yakin?" data-confirm-yes="submitDel(<?= $value->id_krs ?>)"><i class="fas fa-trash"></i></button>
+                                        </form>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -140,7 +142,7 @@
                 </div>
             </div>
             <?php  $id = session()->get('id_user'); ?>
-            <a href="<?= site_url('krs/'.$id.'/show') ?>" class="btn btn-warning"><i class="fas fa-print"></i> Print</a>
+            <a target="_blank" href="<?= site_url('krs/'.$id.'/show') ?>" class="btn btn-warning"><i class="fas fa-print"></i> Print</a>
 
         </div>
 

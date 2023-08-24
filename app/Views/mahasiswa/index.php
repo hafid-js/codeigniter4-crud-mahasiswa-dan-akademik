@@ -96,6 +96,7 @@
                                         <form action="<?= site_url('mahasiswa/' . $value->id_mahasiswa) ?>" class="d-inline" method="post" id="del-<?= $value->id_mahasiswa ?>">
                                             <?= csrf_field(); ?>
                                             <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="nim" value="<?= $value->nim ?>">
                                             <button href="" class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah Anda Yakin?" data-confirm-yes="submitDel(<?= $value->id_mahasiswa ?>)"><i class="fas fa-trash"></i></button>
                                         </form>
 

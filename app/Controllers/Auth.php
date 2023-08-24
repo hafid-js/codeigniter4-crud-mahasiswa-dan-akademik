@@ -48,7 +48,7 @@ class Auth extends BaseController
                 return redirect()->to(site_url('home'));
             } else {
                 //jika datanya tidak cocok
-                session()->setFlashdata('error','Login Gagal !, Username atau Password tidak cocok');
+                session()->setFlashdata('error','Login Gagal ! Email atau Password tidak cocok');
                 return redirect()->to(site_url('auth/login'));
             }
         } else {
@@ -56,6 +56,8 @@ class Auth extends BaseController
             session()->setFlashdata('errors', \Config\Services::validation()->getErrors());
             return redirect()->to(site_url('auth/login'));
         }
+
+       
     }
 
     public function logout() {

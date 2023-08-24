@@ -46,13 +46,18 @@ class Filters extends BaseConfig
                 'mahasiswa', 'mahasiswa/*',
                 'matakuliah', 'matakuliah/*',
                 'akademik', 'akademik/*',
-                'file', 'file/*',
+                'file', 'file',
+                'file', 'file/update/*',
                 'menu', 'menu/*'
             ]],
             'filtermahasiswa' => ['except' => [
                 'home', 'home/*',
                 'krs', 'krs/*',
-                'menu', 'menu/*'
+                'menu', 'menu/*',
+                'file', 'file/data/',
+                'file', 'file/new/',
+                'file', 'file/create/',
+                'file', 'file/delete'
             ]],
             'toolbar',
             // 'honeypot',

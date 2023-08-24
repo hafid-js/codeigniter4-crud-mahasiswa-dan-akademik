@@ -1,6 +1,6 @@
 <?= $this->extend('layout/default') ?>
 <?= $this->section('title') ?>
-<title>Data Matakuliah &mdash; CRUD Mahasiswa</title>
+<title>Data KRS &mdash; CRUD Mahasiswa</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -30,7 +30,7 @@
         <div class="card">
             <div class="card-header">
                 <h4>
-                    List Mata Kuliah
+                    List KRS
                 </h4>
             </div>
             <div class="card">
@@ -59,21 +59,20 @@
                         </div>
                         <br>
                         <small class="form-text text-muted" style="font-style:italic;">
-                        * Kata kunci kode matakuliah dan nama mata kuliah.
-                      </small>
+                            * Kata kunci nim mahasiswa.
+                        </small>
                     </form>
                 </div>
-                <div class="card-header">
-                <a href="<?= site_url('matakuliah/new') ?>" class="btn btn-primary">Tambah Data</a>
-                  </div>
                 <div class="card-body table-responsive">
                     <table class="card-body table table-striped table-md" id="table-1">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Kode Matakuliah</th>
-                                <th>Nama Matakuliah</th>
-                                <th>SKS</th>
+                                <th>NIM</th>
+                                <th>Nama Mahasiswa</th>
+                                <th>File</th>
+                                <th>Keterangan</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -81,25 +80,31 @@
                             <?php
                             $page = isset($_GET['page']) ? $_GET['page'] : 1;
                             $no = 1 + (10 * ($page - 1));
-                            foreach ($matakuliah as $key => $value) : ?>
+                            foreach ($file as $key => $value) : ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
-                                    <td><?= $value->kode_matakuliah ?></td>
-                                    <td><?= $value->nama_matakuliah ?></td>
-                                    <td><?= $value->sks ?></td>
-                                    <td class="text-center" style="width: 15%;">
-                                        <a href="<?= site_url('matakuliah/' . $value->id_matakuliah . '/edit') ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        <form action="<?= site_url('matakuliah/' . $value->id_matakuliah) ?>" class="d-inline" method="post" id="del-<?= $value->id_matakuliah ?>">
+                                    <td><?= $value->nim ?></td>
+                                    <td><?= $value->nama ?></td>
+                                    <td><?= $value->file ?></td>
+                                    <td><?= $value->keterangan ?></td>
+                                    <?php if ($value->status == 0) { ?>
+                                        <td><span class="badge badge-warning"><i class="fas fa-clock"></i> Menunggu Persetujuan</span></td>
+                                    <?php } else if ($value->status == 1) {  ?>
+                                        <td><span class="badge badge-success">Disetujui</span></td>
+                                    <?php } else { ?>
+                                        <td><span class="badge badge-danger">Ditolak</span></td>
+                                    <?php  } ?>
+                                    <td>
+                                    <a target="_blank" href="<?= base_url('uploads/krs/' . $value->file) ?>" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+                                    <form action="<?= site_url('file/' . $value->id_file) ?>" class="d-inline" method="post" id="del-<?= $value->id_file ?>">
                                             <?= csrf_field(); ?>
                                             <input type="hidden" name="_method" value="DELETE">
-                                            <button href="" class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah Anda Yakin?" data-confirm-yes="submitDel(<?= $value->id_matakuliah ?>)"><i class="fas fa-trash"></i></button>
+                                            <button href="" class="btn btn-danger" data-confirm="Hapus Data KRS?|Apakah Anda Yakin?" data-confirm-yes="submitDel(<?= $value->id_file ?>)"><i class="fas fa-trash"></i></button>
                                         </form>
-
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
-
                     </table>
                     <div class="float-left">
                         <i>Showing <?= 1 + (10 * ($page - 1)) ?> to <?= $no - 1 ?> of <?= $pager->getTotal() ?> enteries</i>
