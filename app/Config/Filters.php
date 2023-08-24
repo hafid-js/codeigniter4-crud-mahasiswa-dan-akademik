@@ -46,6 +46,7 @@ class Filters extends BaseConfig
                 'mahasiswa', 'mahasiswa/*',
                 'matakuliah', 'matakuliah/*',
                 'akademik', 'akademik/*',
+                'file', 'file/*',
                 'menu', 'menu/*'
             ]],
             'filtermahasiswa' => ['except' => [

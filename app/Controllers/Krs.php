@@ -57,7 +57,7 @@ class Krs extends ResourceController
 		// $html = view('krs/show', $data);
 		// $mpdf->WriteHTML($html);
 		// $this->response->setHeader('Content-Type', 'application/pdf');
-		// $mpdf->Output('arjun.pdf','I');
+		// $mpdf->Output();
 
         // $html = route_to('krs/show', $data, true);
 		// $mpdf = new \Mpdf\Mpdf(array('enable_remote' => true));
