@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use App\Models\MahasiswaModel;
+use App\Models\AkademikModel;
 use App\Models\UserModel;
 use CodeIgniter\RESTful\ResourceController;
 
-class Mahasiswa extends ResourceController
+class Akademik extends ResourceController
 {
     /**
      * Return an array of resource objects, themselves in array format
@@ -15,7 +15,7 @@ class Mahasiswa extends ResourceController
      */
     function __construct()
     {
-        $this->mahasiswa = new MahasiswaModel();
+        $this->akademik = new AkademikModel();
         $this->users = new UserModel();
     }
 
@@ -24,11 +24,11 @@ class Mahasiswa extends ResourceController
     public function index()
     {
         $keyword = $this->request->getGet('keyword');
-        $data = $this->mahasiswa->getPaginated(10, $keyword);
+        $data = $this->akademik->getPaginated(10, $keyword);
 
         //untuk menampilkan kata yang dicari
         // $data['keyword'] = $keyword;
-        return view('mahasiswa/index', $data);
+        return view('akademik/index', $data);
     }
 
     /**
@@ -48,7 +48,7 @@ class Mahasiswa extends ResourceController
      */
     public function new()
     {
-        return view('mahasiswa/new');
+        return view('akademik/new');
     }
 
 
@@ -60,31 +60,29 @@ class Mahasiswa extends ResourceController
     public function create()
     {
         $data = [
-            'nim' => $this->request->getVar('nim'),
+            'nip' => $this->request->getVar('nip'),
             'nama' => $this->request->getVar('nama'),
-            'email_mahasiswa' => $this->request->getVar('email_mahasiswa'),
-            'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
-            'alamat' => $this->request->getVar('alamat'),
+            'email_akademik' => $this->request->getVar('email_akademik'),
         ];
             
-        $nim = $this->request->getVar('nim');
+        $nip = $this->request->getVar('nip');
         $db      = db_connect();
-        $cek = $db->query("SELECT * FROM Mahasiswa WHERE nim = '$nim'");
+        $cek = $db->query("SELECT * FROM Akademik WHERE nip = '$nip'");
         if ($cek->getNumRows() >= 1) {
-            return redirect()->back()->withInput()->with('error', 'Kode Mahasiswa tersebut sudah digunakan, silahkan gunakan yang lain!');
+            return redirect()->back()->withInput()->with('error', 'Nomor Induk Pegawai tersebut sudah digunakan, silahkan gunakan yang lain!');
         } else {
-            $save = $this->mahasiswa->insert($data);
+            $save = $this->akademik->insert($data);
             if (!$save) {
-                return redirect()->back()->withInput()->with('errors', $this->mahasiswa->errors());
+                return redirect()->back()->withInput()->with('errors', $this->akademik->errors());
             } else {
                 $data = [
-                    'id_user' => $this->request->getVar('nim'),
-                    'email_user' => $this->request->getVar('email_mahasiswa'),
-                    'password_user' => $this->request->getVar('nim'),
-                    'level' => 2,
+                    'id_user' => $this->request->getVar('nip'),
+                    'email_user' => $this->request->getVar('email_akademik'),
+                    'password_user' => $this->request->getVar('nip'),
+                    'level' => 1,
                 ];
                 $this->users->insert($data);
-                return redirect()->to(site_url('mahasiswa'))->with('success', 'Data Berhasil Disimpan');
+                return redirect()->to(site_url('akademik'))->with('success', 'Data Berhasil Disimpan');
             }
         }
     }
@@ -96,10 +94,10 @@ class Mahasiswa extends ResourceController
      */
     public function edit($id = null)
     {
-        $mahasiswa = $this->mahasiswa->find($id);
-        if (is_object($mahasiswa)) {
-            $data['mahasiswa'] = $mahasiswa;
-            return view('mahasiswa/edit', $data);
+        $akademik = $this->akademik->find($id);
+        if (is_object($akademik)) {
+            $data['akademik'] = $akademik;
+            return view('akademik/edit', $data);
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -136,19 +134,20 @@ class Mahasiswa extends ResourceController
         //     return redirect()->back()->withInput()->with('error', 'NIM tersebut sudah digunakan, silahkan cek kembali!');
         // }
 
-        $data = $this->request->getPost();
-        $nim = $this->request->getVar('nim');
-        $save = $this->mahasiswa->update($id, $data);
+        $data = [
+            'nama' => $this->request->getVar('nama'),
+        ];
+        $save = $this->akademik->update($id, $data);
         if(!$save) {
-         return redirect()->back()->withInput()->with('errors', $this->mahasiswa->errors());
+         return redirect()->back()->withInput()->with('errors', $this->akademik->errors());
        } else {
         $data = [
-            'id_user' => $this->request->getVar('nim'),
-            'email_user' => $this->request->getVar('email_mahasiswa'),
-            'password_user' => password_hash($nim, PASSWORD_BCRYPT),
+            'id_user' => $this->request->getVar('nip'),
+            'email_user' => $this->request->getVar('email_akademik'),
+            'password_user' => $this->request->getVar('nip'),
             'level' => 2,
         ];
-         return redirect()->to(site_url('mahasiswa'))->with('success', 'Data Berhasil Diupdate');
+         return redirect()->to(site_url('akademik'))->with('success', 'Data Berhasil Diupdate');
        }
     
     }
@@ -160,7 +159,7 @@ class Mahasiswa extends ResourceController
      */
     public function delete($id = null)
     {
-        $this->mahasiswa->delete($id);
-        return redirect()->to(site_url('mahasiswa'))->with('success', 'Data Berhasil Dihapus');
+        $this->akademik->delete($id);
+        return redirect()->to(site_url('akademik'))->with('success', 'Data Berhasil Dihapus');
     }
 }

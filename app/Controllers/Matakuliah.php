@@ -20,6 +20,7 @@ class Matakuliah extends ResourceController
     protected $helpers = ['custom'];
     public function index()
     {
+        
         $keyword = $this->request->getGet('keyword');
         $data = $this->matakuliah->getPaginated(10, $keyword);
 
@@ -116,6 +117,7 @@ class Matakuliah extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        $this->matakuliah->delete($id);
+        return redirect()->to(site_url('matakuliah'))->with('success', 'Data Berhasil Dihapus');
     }
 }

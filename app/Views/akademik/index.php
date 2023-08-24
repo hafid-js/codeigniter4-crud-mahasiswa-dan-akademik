@@ -1,6 +1,6 @@
 <?= $this->extend('layout/default') ?>
 <?= $this->section('title') ?>
-<title>Data Mahasiswa &mdash; CRUD Mahasiswa</title>
+<title>Data Pegawai Akademik &mdash; CRUD Mahasiswa</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -30,7 +30,7 @@
         <div class="card">
             <div class="card-header">
                 <h4>
-                    List Mahasiswa
+                    List Pegawai Akademik
                 </h4>
             </div>
             <div class="card">
@@ -59,23 +59,22 @@
                         </div>
                         <br>
                         <small class="form-text text-muted" style="font-style:italic;">
-                        * Kata kunci berdasarkan nim, nama, jenis kelamin, dan alamat
+                        * Kata kunci berdasarkan nip, dan nama
                       </small>
                     </form>
                 </div>
                 <div class="card-header">
-                <a href="<?= site_url('mahasiswa/new') ?>" class="btn btn-primary">Tambah Data</a>
+                <a href="<?= site_url('akademik/new') ?>" class="btn btn-primary">Tambah Data</a>
                   </div>
                 <div class="card-body table-responsive">
                     <table class="card-body table table-striped table-md" id="table-1">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>NIM</th>
+                                <th>NIP</th>
                                 <th>Nama</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Alamat</th>
-                                <th>Jumlah Mata Kuliah</th>
+                                <th>Email</th>
+                                <th>Jabatan</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -83,20 +82,19 @@
                             <?php
                             $page = isset($_GET['page']) ? $_GET['page'] : 1;
                             $no = 1 + (10 * ($page - 1));
-                            foreach ($mahasiswa as $key => $value) : ?>
+                            foreach ($akademik as $key => $value) : ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
-                                    <td><?= $value->nim ?></td>
+                                    <td><?= $value->nip ?></td>
                                     <td><?= $value->nama ?></td>
-                                    <td><?= $value->jenis_kelamin ?></td>
-                                    <td><?= $value->alamat ?></td>
-                                    <td><?= $value->id_mahasiswa ?></td>
+                                    <td><?= $value->email_akademik ?></td>
+                                    <td>Akademik</td>
                                     <td class="text-center" style="width: 15%;">
-                                        <a href="<?= site_url('mahasiswa/' . $value->id_mahasiswa . '/edit') ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        <form action="<?= site_url('mahasiswa/' . $value->id_mahasiswa) ?>" class="d-inline" method="post" id="del-<?= $value->id_mahasiswa ?>">
+                                        <a href="<?= site_url('akademik/' . $value->id_akademik . '/edit') ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                        <form action="<?= site_url('akademik/' . $value->id_akademik) ?>" class="d-inline" method="post" id="del-<?= $value->id_akademik ?>">
                                             <?= csrf_field(); ?>
                                             <input type="hidden" name="_method" value="DELETE">
-                                            <button href="" class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah Anda Yakin?" data-confirm-yes="submitDel(<?= $value->id_mahasiswa ?>)"><i class="fas fa-trash"></i></button>
+                                            <button href="" class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah Anda Yakin?" data-confirm-yes="submitDel(<?= $value->id_akademik ?>)"><i class="fas fa-trash"></i></button>
                                         </form>
 
                                     </td>

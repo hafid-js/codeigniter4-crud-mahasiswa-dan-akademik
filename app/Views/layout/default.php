@@ -14,8 +14,8 @@
 
     <!-- datatables css -->
     <link rel="stylesheet" href="<?php base_url() ?>/template/assets/modules/datatables/datatables.min.css">
-  <link rel="stylesheet" href="<?php base_url() ?>/template/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="<?php base_url() ?>/template/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?php base_url() ?>/template/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?php base_url() ?>/template/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?php base_url() ?>/template/assets/css/style.css">
@@ -49,10 +49,46 @@
                 <ul class="navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <img alt="image" src="<?php base_url() ?>/template/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Khafid</div>
+                            <div class="d-sm-none d-lg-inline-block">Hi,
+                                <?php
+                                if (session()->get('level') == 1) {
+                                    $nip = session()->get('id_user');
+                                    $connect = mysqli_connect("127.0.0.1", "root", "", "db_mahasiswa");
+                                    $sql = "SELECT nama FROM Akademik WHERE nip = $nip";
+                                    $result = mysqli_query($connect, $sql);
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        echo $row["nama"];
+                                    }
+                                }
+
+                                if (session()->get('level') == 2) {
+
+
+                                    $nim = session()->get('id_user');
+                                    $connect = mysqli_connect("127.0.0.1", "root", "", "db_mahasiswa");
+                                    $sql = "SELECT nama FROM Mahasiswa WHERE nim = $nim";
+                                    $result = mysqli_query($connect, $sql);
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        echo $row["nama"];
+                                    }
+                                }
+
+                                ?>
+                                <br>
+                                <!-- <p>
+                                    <?php if (session()->get('level') == 1) {
+                                        echo 'Akademik';
+                                    } else if (session()->get('level') == 2) {
+                                        echo 'Mahasiswa';
+                                    } else {
+                                        echo 'Tidak Dikenali';
+                                    } ?>
+                                </p> -->
+                            </div>
+
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <div class="dropdown-title">Logged in 5 min ago</div>
+                            <!-- <div class="dropdown-title">Logged in 5 min ago</div>
                             <a href="features-profile.html" class="dropdown-item has-icon">
                                 <i class="far fa-user"></i> Profile
                             </a>
@@ -61,9 +97,9 @@
                             </a>
                             <a href="features-settings.html" class="dropdown-item has-icon">
                                 <i class="fas fa-cog"></i> Settings
-                            </a>
+                            </a> -->
                             <div class="dropdown-divider"></div>
-                            <a href="<?= site_url('auth/logout') ?>" class="dropdown-item has-icon text-danger" id="logout" data-confirm="Logout?|Yakin keluar aplikasi?" data-confirm-yes="returnLogout()">
+                            <a href="<?= site_url('auth/logout') ?>" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </div>
@@ -79,9 +115,9 @@
                         <a href="<?= site_url() ?>">CM</a>
                     </div>
                     <ul class="sidebar-menu">
-                      <?= $this->include('layout/menu') ?>
-                            </ul>
-                        </li>
+                        <?= $this->include('layout/menu') ?>
+                    </ul>
+                    </li>
                 </aside>
             </div>
 
@@ -111,20 +147,20 @@
 
     <!-- JS Libraies -->
 
-  <script src="<?php base_url() ?>/template/assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-  <script src="<?php base_url() ?>/template/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
-  <script src="<?php base_url() ?>/template/assets/modules/jquery-ui/jquery-ui.min.js"></script>
+    <script src="<?php base_url() ?>/template/assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?php base_url() ?>/template/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+    <script src="<?php base_url() ?>/template/assets/modules/jquery-ui/jquery-ui.min.js"></script>
 
-  <script src="<?php base_url() ?>/template/assets/js/page/modules-datatables.js"></script>
+    <script src="<?php base_url() ?>/template/assets/js/page/modules-datatables.js"></script>
 
     <!-- Page Specific JS File -->
     <script>
-    window.setTimeout(function() {
-        $(".alert").fadeTo(500, 0).slideUp(500, function() {
-            $($this).remove();
-        });
-    },3000);
-  </script>
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                $($this).remove();
+            });
+        }, 3000);
+    </script>
     <!-- Template JS File -->
     <script src="<?php base_url() ?>/template/assets/js/scripts.js"></script>
     <script src="<?php base_url() ?>/template/assets/js/custom.js"></script>

@@ -1,4 +1,4 @@
-Tambah Data<?= $this->extend('layout/default') ?>
+<?= $this->extend('layout/default') ?>
 <?= $this->section('title') ?>
 <title>Create Matakuliah &mdash; CRUD Mahasiswa</title>
 <?= $this->endSection() ?>
@@ -6,16 +6,10 @@ Tambah Data<?= $this->extend('layout/default') ?>
 <?= $this->section('content') ?>
 
 <section class="section">
-    <div class="section-header">
-        <div class="section-header-back">
-            <a href="<?= site_url('matakuliah') ?>" class="btn"><i class="fas fa-arrow-left"></i></a>
-        </div>
-        <h1>Create Matakuliah</h1>
-    </div>
-
     <div class="section-body">
         <div class="card">
             <div class="card-header">
+            <a href="<?= site_url('matakuliah') ?>" class="btn"><i class="fas fa-arrow-left"></i></a>
                 <h4>
                     Buat Data Baru
                 </h4>

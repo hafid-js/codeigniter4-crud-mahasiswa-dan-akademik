@@ -1,15 +1,16 @@
 <?= $this->extend('layout/default') ?>
 <?= $this->section('title') ?>
-<title>Add Mahasiswa &mdash; CRUD Mahasiswa</title>
+<title>Add Pegawai &mdash; CRUD akademik</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 
 <section class="section">
+
     <div class="section-body">
         <div class="card">
             <div class="card-header">
-            <a href="<?= site_url('mahasiswa') ?>" class="btn"><i class="fas fa-arrow-left"></i></a>
+            <a href="<?= site_url('akademik') ?>" class="btn"><i class="fas fa-arrow-left"></i></a>
                 <h4>
                     Buat Data Baru
                 </h4>
@@ -28,13 +29,13 @@
             <?php endif; ?>
             <div class="card-body col-md-6">
                 <?php $errors = session()->getFlashdata('errors'); ?>
-                <form action="<?= site_url('mahasiswa') ?>" method="post" autocomplete="off">
+                <form action="<?= site_url('akademik') ?>" method="post" autocomplete="off">
                     <?= csrf_field() ?>
                     <div class="form-group">
-                        <label for="">NIM *</label>
-                        <input type="text" name="nim" value="<?= old('nim') ?>" class="form-control <?= isset($errors['nim']) ? 'is-invalid' : null ?>">
+                        <label for="">NIP (Nomor Induk Pegawai) *</label>
+                        <input type="text" name="nip" value="<?= old('nip') ?>" class="form-control <?= isset($errors['nip']) ? 'is-invalid' : null ?>">
                         <div class="invalid-feedback">
-                            <?= isset($errors['nim']) ? $errors['nim'] : null ?>
+                            <?= isset($errors['nip']) ? $errors['nip'] : null ?>
                         </div>
                     </div>
 
@@ -48,29 +49,10 @@
 
                     <div class="form-group">
                         <label for="">Email *</label>
-                        <input type="text" name="email_mahasiswa" value="<?= old('email_mahasiswa') ?>" class="form-control <?= isset($errors['email_mahasiswa']) ? 'is-invalid' : null ?>">
+                        <input type="text" name="email_akademik" value="<?= old('email_akademik') ?>" class="form-control <?= isset($errors['email_akademik']) ? 'is-invalid' : null ?>">
                         <div class="invalid-feedback">
-                            <?= isset($errors['email_mahasiswa']) ? $errors['email_mahasiswa'] : null ?>
+                            <?= isset($errors['email_akademik']) ? $errors['email_akademik'] : null ?>
                         </div>
-                    </div>
-
-                    <div class="form-group mt-2 mb-1">
-                        <label for="">Jenis Kelamin *</label>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="jenis_kelamin" name="jenis_kelamin" value="Laki-Laki" class="custom-control-input" checked>
-                            <label class="custom-control-label" for="jenis_kelamin">Laki-Laki</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline2" name="jenis_kelamin" value="Perempuan" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadioInline2">Perempuan</label>
-                        </div>
-                    </div>
-                    <div class="invalid-feedback">
-                        <?= isset($errors['jenis_kelamin']) ? $errors['jenis_kelamin'] : null ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Alamat</label>
-                        <textarea name="alamat" value="<?= old('alamat') ?>" rows="4" cols="50" class="form-control"></textarea>
                     </div>
                     <div>
                         <button type="submit" class="btn btn-success"><i class="fas fa-paper-plane"></i> Save</button>

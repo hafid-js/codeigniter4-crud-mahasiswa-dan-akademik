@@ -50,6 +50,7 @@ class MahasiswaModel extends Model
     
     function getPaginated($num, $keyword = null) {
         $builder = $this->builder();
+        // $builder->join('krs','krs.id_mahasiswa = mahasiswa.nim');
         if($keyword != '') {
             $builder->like('nama', $keyword);
             $builder->orLike('nim', $keyword);

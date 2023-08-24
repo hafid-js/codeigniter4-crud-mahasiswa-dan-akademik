@@ -16,6 +16,7 @@ class Krs extends ResourceController
      */
     function __construct()
     {
+       
         $this->krs = new KrsModel();
         $this->matakuliah = new MatakuliahModel();
     }
@@ -24,8 +25,14 @@ class Krs extends ResourceController
 
     public function index()
     {
-        $query = $this->db->query("SELECT matakuliah.kode_matakuliah, matakuliah.nama_matakuliah, count(sks) as jumlah_sks FROM Krs, Matakuliah");
+        $id_mahasiswa = session()->get('id_user');
+        $db = db_connect();
+        $query = $db->query("SELECT matakuliah.kode_matakuliah, matakuliah.nama_matakuliah, sks FROM Krs, Matakuliah WHERE krs.id_mahasiswa = $id_mahasiswa GROUP BY matakuliah.kode_matakuliah");
         $data['krs'] = $query->getResult();
+
+        $query2 = $db->query("SELECT nim, nama, email_mahasiswa FROM Mahasiswa WHERE nim = $id_mahasiswa");
+        $data['mahasiswa'] = $query2->getResult();
+
         $data['matakuliah'] = $this->matakuliah->findAll();
         return view('krs/index', $data);
     }
@@ -37,7 +44,25 @@ class Krs extends ResourceController
      */
     public function show($id = null)
     {
-        //
+        $db = db_connect();
+        $query = $db->query("SELECT matakuliah.kode_matakuliah, matakuliah.nama_matakuliah, matakuliah.sks FROM Krs, Matakuliah WHERE krs.id_matakuliah = matakuliah.id_matakuliah AND krs.id_mahasiswa = $id");
+        $data['krs'] = $query->getResult();
+
+        $query2 = $db->query("SELECT nim, nama, email_mahasiswa FROM Mahasiswa WHERE nim = $id");
+        $data['mahasiswa'] = $query2->getResult();
+        $data['matakuliah'] = $this->matakuliah->findAll();
+ 
+
+        // $mpdf = new \Mpdf\Mpdf();
+		// $html = view('krs/show', $data);
+		// $mpdf->WriteHTML($html);
+		// $this->response->setHeader('Content-Type', 'application/pdf');
+		// $mpdf->Output('arjun.pdf','I');
+
+        // $html = route_to('krs/show', $data, true);
+		// $mpdf = new \Mpdf\Mpdf(array('enable_remote' => true));
+		// $mpdf->WriteHTML($html);
+		// $mpdf->Output();
     }
 
     /**

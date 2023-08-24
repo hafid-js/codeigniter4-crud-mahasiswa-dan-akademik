@@ -46,7 +46,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type="hidden" name="id_mahasiswa[]" value="2">
+                            <input type="hidden" name="id_mahasiswa[]" value="<?= session()->get('id_user') ?>">
                             <select class="form-control" name="id_matakuliah[]" required="required">
                                 <option value="">- Pilih Mata Kuliah -</option>
                                 <?php foreach ($matakuliah as $key => $value) : ?>
@@ -82,25 +82,25 @@
                     </div>
                     <div class="col-lg-12">
                         <hr>
-
+                        <?php foreach ($mahasiswa as $key => $value) : ?>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group row">
                                     <label class="col-sm-3">NIM</label>
                                     <div class="col-sm-9">
-                                        <label for="">: 18560003</label>
+                                        <label for="">: <?= $value->nim ?></label>
                                     </div>
                                     <label class="col-sm-3">NAMA </label>
                                     <div class="col-sm-9">
-                                        <label for="">: Desya</label>
+                                        <label for="">: <?= $value->nama ?></label>
                                     </div>
-                                    <label class="col-sm-3">PROGRAM STUDI </label>
+                                    <label class="col-sm-3">EMAIL </label>
                                     <div class="col-sm-9">
-                                        <label for="">: S1 Sistem Informasi</label>
+                                        <label for="">: <?= $value->email_mahasiswa ?></label>
                                     </div>
                                 </div>
                             </div>
-
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
@@ -121,11 +121,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($matakuliah as $key => $value) : ?>
+                                    <?php foreach ($krs as $key => $value) : ?>
                                     <tr>
                                         <td><?= $value->kode_matakuliah ?></td>
                                         <td><?= $value->nama_matakuliah ?> </td>
-                                        <td>2</td>
+                                        <td><?= $value->sks ?></td>
                                         <td>
                                             <div class="buttons">
                                                 <a href="http://localhost/testcodingkhafid/krs/hapus_data/78" onclick="return confirm('Yakin hapus data?')" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
@@ -139,24 +139,8 @@
                     </div>
                 </div>
             </div>
-
-            <form action="http://localhost/testcodingkhafid/printtopdf/print" method="POST" class="text-md-left">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <input type="hidden" name="id_user" value="3">
-                <button type="submit" class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
-            </form>
+            <?php  $id = session()->get('id_user'); ?>
+            <a href="<?= site_url('krs/'.$id.'/show') ?>" class="btn btn-warning"><i class="fas fa-print"></i> Print</a>
 
         </div>
 
@@ -175,7 +159,7 @@
 
 								<td>
 							
-								<input type="hidden" name="id_mahasiswa[]" value="2">
+								<input type="hidden" name="id_mahasiswa[]" value="<?= session()->get('id_user') ?>">
 
 								<select class="form-control" required="required" name="id_matakuliah[]">
 								<option value="">- Pilih Mata Kuliah -</option>

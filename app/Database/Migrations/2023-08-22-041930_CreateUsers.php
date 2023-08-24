@@ -13,7 +13,6 @@ class CreateUsers extends Migration
                 'type'           => 'BIGINT',
                 'constraint'     => 20,
                 'unsigned'       => true,
-                'auto_increment' => true,
             ],
             'email_user' => [
                 'type'       => 'VARCHAR',
