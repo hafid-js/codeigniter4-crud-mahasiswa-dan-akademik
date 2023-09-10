@@ -44,3 +44,6 @@ Hak Akses Admin Akademik :
   - Sistem ini sudah menggunakan Filter URL, sehingga Mahasiswa tidak dapat mengakses menu Admin Akademik melalui URL, begitu juga sebaliknya.
 
 16. Catatan Bug : Masih belum ditemuka bug
+
+
+Apabila dapat kendala saat menjalankan program, silahkan hubungi saya di instagram saya : hafid.js
