@@ -50,16 +50,29 @@ class MahasiswaModel extends Model
     
     function getPaginated($num, $keyword = null) {
         $builder = $this->builder();
+        $builder->select('mahasiswa.*, krs.id_matakuliah');
+        $builder->select('count(krs.id_matakuliah) as total_matakuliah');
+        $builder->join('krs', 'krs.id_mahasiswa = mahasiswa.nim', 'left');
+        $builder->groupBy('mahasiswa.nim');
         $builder->orderBy('created_at DESC');
         if($keyword != '') {
             $builder->like('nama', $keyword);
             $builder->orLike('nim', $keyword);
             $builder->orLike('jenis_kelamin', $keyword);
             $builder->orLike('alamat', $keyword);
+            $builder->groupBy('mahasiswa.nim');
         }
         return [
             'mahasiswa' => $this->paginate($num),
             'pager' => $this->pager,
         ];
     }
+
+
+
+    
 }
+
+
+
+

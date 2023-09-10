@@ -90,7 +90,7 @@
                                     <td><?= $value->nama ?></td>
                                     <td><?= $value->jenis_kelamin ?></td>
                                     <td><?= $value->alamat ?></td>
-                                    <td><?= $value->id_mahasiswa ?></td>
+                                    <td><?= $value->total_matakuliah ?></td>
                                     <td class="text-center" style="width: 15%;">
                                         <a href="<?= site_url('mahasiswa/' . $value->id_mahasiswa . '/edit') ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                         <form action="<?= site_url('mahasiswa/' . $value->id_mahasiswa) ?>" class="d-inline" method="post" id="del-<?= $value->id_mahasiswa ?>">

@@ -36,6 +36,7 @@ $routes->resource('mahasiswa');
 $routes->resource('matakuliah');
 $routes->resource('krs');
 $routes->resource('akademik');
+$routes->resource('logactivities');
 $routes->get('/file/data', 'File::data');
 $routes->resource('file');
 $routes->get('/auth/login', 'Auth::login');
