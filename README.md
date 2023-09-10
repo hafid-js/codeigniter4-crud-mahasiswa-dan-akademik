@@ -1,62 +1,46 @@
-# CodeIgniter 4 Application Starter
+Instruksi :
+1. Download program ini dalam bentuk Zip
+2. Extract
+3. Jalankan XAMPP
+4. Buka halaman PhpMyAdmin dan buat database baru dengan nama db_mahasiswa
+5. Import database yang ada didalam file ini dengan nama db_mahasiswa.sql ke PhpMyAdmin
+6. Buka file di code editor Visual Studio Code
+7. Ubah file env example menjadi .env dan sesuaikan Enviroment database dengan xampp anda
+8. Buka Terminal
+9. Ketikkan php spark serve
+10. Buka browser, ketikkan : localhost:8080
+11. login
+12. Masukkan email dan password
+    
+Akun Mahasiswa
+  - Email : 18560033@gmail.com
+  - Password : 18560033
+  - Email : 18560012@gmail.com
+  - Password : 18560012
 
-## What is CodeIgniter?
+Akun Admin Akademik
+  - Email : 12300001@gmail.com
+  - Password : 12300001
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+13. Hak Akses :
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Hak Akses Menu Mahasiswa :
+  - Input KRS
+  - Export KRS
+  - Upload KRS
+  - Melihat Data KRS nya
+  - Menghapus Data KRS nya
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+Hak Akses Admin Akademik :
+  - CRUD Data Mahasiswa
+  - CRUD Data Matakuliah
+  - CRUD Data Admin Akademik
+  - Melihat, Menyetujui dan Menolak Data KRS Mahasiswa
 
-The user guide corresponding to the latest version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+14. Setiap Admin Akademik menginputkan data mahasiswa baru, secara otomatis akan membuatkan akun mahasiswa baru yang bisa digunakan untuk mengakses sistem (secara default nim mahasiswa digunakan sebagai password)
+15. Setiap Admin Akademik menginputkan data admin akademik (pegawai) baru, secara otomatis juga akan membuatkan akun admin akademik yang bisa digunakan untuk mengakses sistem (secara default nip admin akademik digunakan sebagai password)
+16. Catatan :
+  - Mayoritas data mahasiswa dibuat menggunakan data faker (fakerphp), sehingga tidak secara otomatis memiliki akun untuk mengakses sistem
+  - Sistem ini sudah menggunakan Filter URL, sehingga Mahasiswa tidak dapat mengakses menu Admin Akademik melalui URL, begitu juga sebaliknya.
 
-## Installation & updates
-
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
-
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
-
-## Setup
-
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
-
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 7.4 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+16. Catatan Bug : Masih belum ditemuka bug
